@@ -59,7 +59,7 @@ export BACKUP_PORT=6362
 export IP0=<IP0 ADDRESS GOES HERE>
 export ADDR0=<IP0 or DNS for IP 0 ADDRESS GOES HERE>
 
-if [ $STANDALONE == "false"]
+if [ $STANDALONE == "false" ]
 then
   #you will need to set these below for a cluster
   export IP1=<IP1 ADDRESS GOES HERE>

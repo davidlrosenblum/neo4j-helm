@@ -10,12 +10,12 @@ then
 		   export IDX=$x
 		   export IP=${CORE_ADDRESSES[$x]}
 		   echo $DEPLOYMENT with IDX $IDX and IP $IP ;
-		   kubectl apply -f ${DEPLOYMENT}.core-${IDX}.loadblancer.yaml
+		   kubectl apply -f ${DEPLOYMENT}.temp.core-${IDX}.loadblancer.yaml
 	done
 else
 	# standalone - only one core server
 	export IDX=0
 	export IP=$IP0
 	echo $DEPLOYMENT with IDX $IDX and IP $IP ;
-	kubectl apply -f ${DEPLOYMENT}.core-${IDX}.loadblancer.yaml
+	kubectl apply -f ${DEPLOYMENT}.temp.core-${IDX}.loadblancer.yaml
 fi
