@@ -1,0 +1,31 @@
+# This ConfigMap gets passed to all core cluster members to configure them.
+# Take note that some networking settings like internal hostname still get configured
+# when the pod starts, but most non-networking specific configs can be tailored here.
+#
+# When your pods start, you will inherit the config in common-configmap.yaml, so you don't
+# need to repeat any of that here, just focus on overrides that are different than what's there.
+# This includes a per pod setting of the advertised address
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "${DEPLOYMENT}-neo4j-externally-addressable-config"
+data:
+  NEO4J_dbms_backup_listen__address: 0.0.0.0:${BACKUP_PORT}
+  NEO4J_dbms_connector_https_listen__address: 0.0.0.0:${HTTPS_PORT}
+  NEO4J_dbms_connector_http_listen__address: 0.0.0.0:${HTTP_PORT}
+  NEO4J_dbms_connector_bolt_listen__address: 0.0.0.0:${BOLT_PORT}
+  NEO4J_dbms_security_procedures_unrestricted: ${dbms_security_procedures_unrestricted}
+  ${DEPLOYMENT}_neo4j_core_0_NEO4J_dbms_default__advertised__address: ${ADDR0}
+  ${DEPLOYMENT}_neo4j_core_0_NEO4J_dbms_connector_bolt_advertised__address: ${ADDR0}:${BOLT_PORT}
+  ${DEPLOYMENT}_neo4j_core_0_NEO4J_dbms_connector_http_advertised__address: ${ADDR0}:${HTTP_PORT}
+  ${DEPLOYMENT}_neo4j_core_0_NEO4J_dbms_connector_https_advertised__address: ${ADDR0}:${HTTPS_PORT}
+  ${DEPLOYMENT}_neo4j_core_1_NEO4J_dbms_default__advertised__address: ${ADDR1}
+  ${DEPLOYMENT}_neo4j_core_1_NEO4J_dbms_connector_bolt_advertised__address: ${ADDR1}:${BOLT_PORT}
+  ${DEPLOYMENT}_neo4j_core_1_NEO4J_dbms_connector_http_advertised__address: ${ADDR1}:${HTTP_PORT}
+  ${DEPLOYMENT}_neo4j_core_1_NEO4J_dbms_connector_https_advertised__address: ${ADDR1}:${HTTPS_PORT}
+  ${DEPLOYMENT}_neo4j_core_2_NEO4J_dbms_default__advertised__address: ${ADDR2}
+  ${DEPLOYMENT}_neo4j_core_2_NEO4J_dbms_connector_bolt_advertised__address: ${ADDR2}:${BOLT_PORT}
+  ${DEPLOYMENT}_neo4j_core_2_NEO4J_dbms_connector_http_advertised__address: ${ADDR2}:${HTTP_PORT}
+  ${DEPLOYMENT}_neo4j_core_2_NEO4J_dbms_connector_https_advertised__address: ${ADDR2}:${HTTPS_PORT}
+
+  

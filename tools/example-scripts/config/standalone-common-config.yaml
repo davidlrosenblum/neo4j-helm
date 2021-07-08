@@ -1,0 +1,39 @@
+# This scenario creates a single-instance standalone Neo4j
+# machine, with a custom memory configuration.
+###############################################################
+core:
+    standalone: ${STANDALONE}
+    configMap: ${DEPLOYMENT}-neo4j-externally-addressable-config
+    persistentVolume:
+      size: ${CORE_DISK_SIZE}
+      storageClass: ${CORE_STORAGE_CLASS}
+    initContainers:
+      - name: init-plugins
+        image: "appropriate/curl:latest"
+        #imagePullPolicy: "IfNotPresent"
+        volumeMounts:
+        - name: plugins
+          mountPath: /plugins
+        command:
+          - "/bin/sh"
+          - "-c"
+          - |
+            wget -P /plugins/ https://github.com/neo4j-contrib/neo4j-apoc-procedures/releases/download/4.2.0.5/apoc-4.2.0.5-all.jar
+    resources:
+        limits:
+            memory: ${RESOURCE_LIMIT}
+        requests:
+            memory: ${RESOURCE_REQUEST}
+
+dbms:
+    memory:
+        use_memrec: ${MEM_USE_MEMREC}
+        heap:
+            initial_size: ${MEM_INTIAL_HEAP}
+            max_size: ${MEM_MAX_SIZE}
+        pagecache:
+            size: ${MEM_PAGECACHE}
+acceptLicenseAgreement: ${ACCEPT_LICENSE_AGREEMENT}
+neo4jPassword: ${INITIAL_PASSWORD}
+plugins: ${PLUGINS}
+
