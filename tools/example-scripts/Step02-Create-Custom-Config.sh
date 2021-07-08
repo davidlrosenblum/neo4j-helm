@@ -4,4 +4,4 @@
 # This configmap is "${DEPLOYMENT}-neo4j-externally-addressable-config" and
 # is referenced by configMap in xxxxx-common-config.yaml
 
-	   cat $CUSTOM_SETUP_YAML | envsubst > ${DEPLOYMENT}.temp.custom-config.YAML
+	   cat $CUSTOM_SETUP_YAML | envsubst > ${DEPLOYMENT}.temp.custom-config.yaml

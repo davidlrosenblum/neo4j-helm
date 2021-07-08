@@ -2,7 +2,7 @@
 # Reuse IP0, etc. from the earlier step here.
 # These *must be IP addresses* and not hostnames, because we're
 # assigning load balancer IP addresses to bind to.
-if [ $STANDALONE -eq false ]
+if [ $STANDALONE == "false" ]
 then
 	export CORE_ADDRESSES=($IP0 $IP1 $IP2)
 
@@ -10,7 +10,6 @@ then
 		   export IDX=$x
 		   export IP=${CORE_ADDRESSES[$x]}
 		   echo $DEPLOYMENT with IDX $IDX and IP $IP ;
-			 #cat $LOAD_BALANCER_SETUP_YAML | envsubst > ${DEPLOYMENT}.core-${IDX}.loadblancer.yaml
 		   kubectl apply -f ${DEPLOYMENT}.core-${IDX}.loadblancer.yaml
 	done
 else
@@ -18,6 +17,5 @@ else
 	export IDX=0
 	export IP=$IP0
 	echo $DEPLOYMENT with IDX $IDX and IP $IP ;
-	#cat $LOAD_BALANCER_SETUP_YAML | envsubst > ${DEPLOYMENT}.core-${IDX}.loadblancer.yaml
 	kubectl apply -f ${DEPLOYMENT}.core-${IDX}.loadblancer.yaml
 fi

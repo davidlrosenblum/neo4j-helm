@@ -5,26 +5,27 @@ export REGION=us-central1
 export PROJECT=neo4j-se-team-201905
 export STANDALONE=true  # if you want to do a cluster set to false
 
-if [ $STANDALONE -eq true ]
+if [ $STANDALONE == "true" ]
+then
   export DEPLOYMENT=neosingle
   # the common config has the basic settings - generally from https://neo4j.com/labs/neo4j-helm/1.0.0/configreference/
-  export COMMON_SETUP_YAML=scripts/config/standalone-common-config.yaml
+  export COMMON_SETUP_YAML=tools/example-scripts/config/standalone-common-config.yaml
   # the custom config has the over-rides to the NEO4J Docker settings that can't be done as common config
   # And all the per pod/server configurations - e.g. unique IP address to advertise, etc.
-  export CUSTOM_SETUP_YAML=scripts/config/standalone-custom-config.yaml
+  export CUSTOM_SETUP_YAML=tools/example-scripts/config/standalone-custom-config.yaml
   # The load balancer provides the advertised address outside of the GKE cluster to route things
-  export LOAD_BALANCER_SETUP_YAML=scripts/config/load-balancer.yaml
+  export LOAD_BALANCER_SETUP_YAML=tools/example-scripts/config/load-balancer.yaml
 
 else
   export DEPLOYMENT=neocluster
   export CORE_SERVER_COUNT=3
   # the common config has the basic settings - generally from https://neo4j.com/labs/neo4j-helm/1.0.0/configreference/
-  export COMMON_SETUP_YAML=scripts/config/cluster-common-config.yaml
+  export COMMON_SETUP_YAML=tools/example-scripts/config/cluster-common-config.yaml
   # the custom config has the over-rides to the NEO4J Docker settings that can't be done as common config
   # And all the per pod/server configurations - e.g. unique IP address to advertise, etc.
-  export CUSTOM_SETUP_YAML=scripts/config/cluster-custom-config.yaml
+  export CUSTOM_SETUP_YAML=tools/example-scripts/config/cluster-custom-config.yaml
   # The load balancer provides the advertised address outside of the GKE cluster to route things
-  export LOAD_BALANCER_SETUP_YAML=scripts/config/load-balancer.yaml
+  export LOAD_BALANCER_SETUP_YAML=tools/example-scripts/config/load-balancer.yaml
 fi
 export CORE_DISK_SIZE=1000Gi
 # The CORE_STORAGE_CLASS is a GKE only setting - comment it out if running elsewhere or you aren't sure.
@@ -58,7 +59,8 @@ export BACKUP_PORT=6362
 export IP0=<IP0 ADDRESS GOES HERE>
 export ADDR0=<IP0 or DNS for IP 0 ADDRESS GOES HERE>
 
-if [ $STANDALONE -eq false ]
+if [ $STANDALONE == "false"]
+then
   #you will need to set these below for a cluster
   export IP1=<IP1 ADDRESS GOES HERE>
   export IP2=<IP2 ADDRESS GOES HERE>
