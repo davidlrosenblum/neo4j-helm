@@ -1,18 +1,17 @@
-#Source this file to create the settings for a sample 3 node neo4j cluster
-#Minimal differences between deploymentStandalone.sh and deploymentCluster.sh
+#Source this file to make the settings for a standalone cluster
+#Minimal differences between deployment.sh and deploymentCluster.sh
 export REGION=us-central1
 export PROJECT=neo4j-se-team-201905
-export DEPLOYMENT=neocluster
+export DEPLOYMENT=neosingle
 # the common config has the basic settings - generally from https://neo4j.com/labs/neo4j-helm/1.0.0/configreference/
-export COMMON_SETUP_YAML=scripts/config/cluster-common-config.yaml
+export COMMON_SETUP_YAML=scripts/config/standalone-common-config.yaml
 # the custom config has the over-rides to the NEO4J Docker settings that can't be done as common config
 # And all the per pod/server configurations - e.g. unique IP address to advertise, etc.
-export CUSTOM_SETUP_YAML=scripts/config/cluster-custom-config.yaml
+export CUSTOM_SETUP_YAML=scripts/config/standalone-custom-config.yaml
 # The load balancer provides the advertised address outside of the GKE cluster to route things
 export LOAD_BALANCER_SETUP_YAML=scripts/config/load-balancer.yaml
 #for a cluster STANDALONE = false
-export STANDALONE=false
-export CORE_SERVER_COUNT=3
+export STANDALONE=true
 export CORE_DISK_SIZE=1000Gi
 # The CORE_STORAGE_CLASS is a GKE only setting - comment it out if running elsewhere or you aren't sure.
 # Other providers are listed https://kubernetes.io/docs/concepts/storage/storage-classes/
@@ -26,7 +25,7 @@ export MEM_PAGECACHE=512M
 export MEM_USE_MEMREC=FALSE
 #This initial password is set when the the PVC is created.
 #If you re-use a PVC - it will have the database and passwords from the prior invocation
-export INITIAL_PASSWORD=mySecretPassword
+export INITIAL_PASSWORD=Myneo4j
 #If you can't reach github and other internet resources you will need to set plugins to "[]" and
 #setup manually with initContainer
 export PLUGINS=\"[]\"

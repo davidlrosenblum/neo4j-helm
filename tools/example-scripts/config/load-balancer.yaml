@@ -13,17 +13,17 @@ spec:
   externalTrafficPolicy: Local
   ports:
   - name: bolt
-    port: 7687
+    port: ${BOLT_PORT}
     protocol: TCP
-    targetPort: 7687
+    targetPort: ${BOLT_PORT}
   - name: http
-    port: 7474
+    port: ${HTTP_PORT}
     protocol: TCP
-    targetPort: 7474
+    targetPort: ${HTTP_PORT}
   - name: https
-    port: 7473
+    port: ${HTTPS_PORT}
     protocol: TCP
-    targetPort: 7473
+    targetPort: ${HTTPS_PORT}
   selector:
     statefulset.kubernetes.io/pod-name: $DEPLOYMENT-neo4j-core-$IDX
   sessionAffinity: None

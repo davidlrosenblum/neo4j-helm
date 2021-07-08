@@ -1,4 +1,3 @@
-. ./scripts/deployment.sh
 for idx in 0 1 2 ; do
    gcloud compute addresses create \
       neo4j-static-ip-$idx --project=$PROJECT \

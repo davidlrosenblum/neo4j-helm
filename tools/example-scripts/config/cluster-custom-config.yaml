@@ -10,11 +10,13 @@ kind: ConfigMap
 metadata:
   name: "${DEPLOYMENT}-neo4j-externally-addressable-config"
 data:
+# Any neo4j configuration setting that is common to all the pods can omit the Depoyment and Core index
   NEO4J_dbms_backup_listen__address: 0.0.0.0:${BACKUP_PORT}
   NEO4J_dbms_connector_https_listen__address: 0.0.0.0:${HTTPS_PORT}
   NEO4J_dbms_connector_http_listen__address: 0.0.0.0:${HTTP_PORT}
   NEO4J_dbms_connector_bolt_listen__address: 0.0.0.0:${BOLT_PORT}
   NEO4J_dbms_security_procedures_unrestricted: ${dbms_security_procedures_unrestricted}
+# The settings below are per pod.  Each pod in 4.2.x needs to advertise it's unique IP addresses
   ${DEPLOYMENT}_neo4j_core_0_NEO4J_dbms_default__advertised__address: ${ADDR0}
   ${DEPLOYMENT}_neo4j_core_0_NEO4J_dbms_connector_bolt_advertised__address: ${ADDR0}:${BOLT_PORT}
   ${DEPLOYMENT}_neo4j_core_0_NEO4J_dbms_connector_http_advertised__address: ${ADDR0}:${HTTP_PORT}
@@ -27,5 +29,3 @@ data:
   ${DEPLOYMENT}_neo4j_core_2_NEO4J_dbms_connector_bolt_advertised__address: ${ADDR2}:${BOLT_PORT}
   ${DEPLOYMENT}_neo4j_core_2_NEO4J_dbms_connector_http_advertised__address: ${ADDR2}:${HTTP_PORT}
   ${DEPLOYMENT}_neo4j_core_2_NEO4J_dbms_connector_https_advertised__address: ${ADDR2}:${HTTPS_PORT}
-
-  

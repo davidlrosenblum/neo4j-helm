@@ -20,6 +20,7 @@ core:
           - "-c"
           - |
             wget -P /plugins/ https://github.com/neo4j-contrib/neo4j-apoc-procedures/releases/download/4.2.0.5/apoc-4.2.0.5-all.jar
+#Put any other files to go to plugins here also
     resources:
         limits:
             memory: ${RESOURCE_LIMIT}
@@ -40,4 +41,3 @@ dbms:
 acceptLicenseAgreement: ${ACCEPT_LICENSE_AGREEMENT}
 neo4jPassword: ${INITIAL_PASSWORD}
 plugins: ${PLUGINS}
-

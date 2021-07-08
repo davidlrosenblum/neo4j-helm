@@ -9,6 +9,7 @@ metadata:
   labels:
     addonmanager.kubernetes.io/mode: EnsureExists
     k8s-app: gcp-compute-persistent-disk-csi-driver
+    app.kubernetes.io/name: neo4j
   name: xfs-premium-rwo
 parameters:
   type: pd-ssd
